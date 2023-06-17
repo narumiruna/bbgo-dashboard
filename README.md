@@ -10,8 +10,10 @@
 pip install poetry
 poetry install
 ```
+
 ## generate db model
 
 ```sh
-poetry run sqlacodegen mysql+pymysql://root@localhost:3306/bbgo > bbgo_dashboard/db.py
+pip install sqlacodegen
+sqlacodegen mysql+pymysql://root@localhost:3306/bbgo > bbgo_dashboard/db.py
 ```

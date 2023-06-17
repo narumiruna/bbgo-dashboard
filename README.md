@@ -15,5 +15,5 @@ poetry install
 
 ```sh
 pip install sqlacodegen
-sqlacodegen mysql+pymysql://root@localhost:3306/bbgo > bbgo_dashboard/db.py
+sqlacodegen mysql+pymysql://root@localhost:3306/bbgo > bbgo_dashboard/db/model.py
 ```

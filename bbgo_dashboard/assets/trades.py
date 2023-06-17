@@ -1,3 +1,4 @@
+import pandas as pd
 from dagster import MetadataValue
 from dagster import Output
 from dagster import asset
@@ -6,7 +7,7 @@ from .resources import DatabaseResource
 
 
 @asset
-def trades(db: DatabaseResource):
+def trades(db: DatabaseResource) -> pd.DataFrame:
     df = db.read_sql('SELECT * FROM trades')
     return Output(value=df,
                   metadata={

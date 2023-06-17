@@ -1,10 +1,15 @@
-import pandas as pd
+from dagster import MetadataValue
+from dagster import Output
 from dagster import asset
 
-from ..db import create_engine_from_env
+from .resources import DatabaseResource
 
 
 @asset
-def trades():
-    engine = create_engine_from_env()
-    return pd.read_sql("SELECT * FROM trades", engine)
+def trades(db: DatabaseResource):
+    df = db.read_sql('SELECT * FROM trades')
+    return Output(value=df,
+                  metadata={
+                      "len_df": MetadataValue.int(len(df)),
+                      "preview": MetadataValue.md(df.head().to_markdown()),
+                  })

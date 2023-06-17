@@ -1,12 +1,12 @@
 import os
 
-import pandas as pd
 from loguru import logger
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 
 
 def create_url_from_env(drivername: str = 'mysql+pymysql'):
+    logger.info('create url from env')
     return URL.create(
         drivername,
         username=os.environ.get('MYSQL_USERNAME', 'root'),
@@ -18,4 +18,5 @@ def create_url_from_env(drivername: str = 'mysql+pymysql'):
 
 
 def create_engine_from_env(**kwargs):
+    logger.info("create engine from env")
     return create_engine(create_url_from_env(), **kwargs)

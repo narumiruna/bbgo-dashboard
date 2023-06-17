@@ -1,6 +1,16 @@
-# coding: utf-8
-from sqlalchemy import BigInteger, Column, DECIMAL, DateTime, Index, String, TIMESTAMP, Text, text
-from sqlalchemy.dialects.mysql import BIGINT, DATETIME, DECIMAL, INTEGER, TINYINT
+from sqlalchemy import TIMESTAMP
+from sqlalchemy import BigInteger
+from sqlalchemy import Column
+from sqlalchemy import DateTime
+from sqlalchemy import Index
+from sqlalchemy import String
+from sqlalchemy import Text
+from sqlalchemy import text
+from sqlalchemy.dialects.mysql import BIGINT
+from sqlalchemy.dialects.mysql import DATETIME
+from sqlalchemy.dialects.mysql import DECIMAL
+from sqlalchemy.dialects.mysql import INTEGER
+from sqlalchemy.dialects.mysql import TINYINT
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -9,10 +19,8 @@ metadata = Base.metadata
 
 class BinanceKline(Base):
     __tablename__ = 'binance_klines'
-    __table_args__ = (
-        Index('idx_kline_binance_unique', 'symbol', 'interval', 'start_time', unique=True),
-        Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval')
-    )
+    __table_args__ = (Index('idx_kline_binance_unique', 'symbol', 'interval', 'start_time',
+                            unique=True), Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval'))
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(10), nullable=False)
@@ -35,9 +43,7 @@ class BinanceKline(Base):
 
 class Deposit(Base):
     __tablename__ = 'deposits'
-    __table_args__ = (
-        Index('txn_id', 'exchange', 'txn_id', unique=True),
-    )
+    __table_args__ = (Index('txn_id', 'exchange', 'txn_id', unique=True),)
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(24), nullable=False)
@@ -50,10 +56,8 @@ class Deposit(Base):
 
 class FtxKline(Base):
     __tablename__ = 'ftx_klines'
-    __table_args__ = (
-        Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval'),
-        Index('idx_kline_ftx_unique', 'symbol', 'interval', 'start_time', unique=True)
-    )
+    __table_args__ = (Index('klines_end_time_symbol_interval', 'end_time', 'symbol',
+                            'interval'), Index('idx_kline_ftx_unique', 'symbol', 'interval', 'start_time', unique=True))
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(10), nullable=False)
@@ -85,9 +89,7 @@ class GooseDbVersion(Base):
 
 class Kline(Base):
     __tablename__ = 'klines'
-    __table_args__ = (
-        Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval'),
-    )
+    __table_args__ = (Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval'),)
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(10), nullable=False)
@@ -110,10 +112,8 @@ class Kline(Base):
 
 class KucoinKline(Base):
     __tablename__ = 'kucoin_klines'
-    __table_args__ = (
-        Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval'),
-        Index('idx_kline_kucoin_unique', 'symbol', 'interval', 'start_time', unique=True)
-    )
+    __table_args__ = (Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval'),
+                      Index('idx_kline_kucoin_unique', 'symbol', 'interval', 'start_time', unique=True))
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(10), nullable=False)
@@ -149,9 +149,7 @@ class MarginInterest(Base):
 
 class MarginLiquidation(Base):
     __tablename__ = 'margin_liquidations'
-    __table_args__ = (
-        Index('order_id', 'order_id', 'exchange', unique=True),
-    )
+    __table_args__ = (Index('order_id', 'order_id', 'exchange', unique=True),)
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(24), nullable=False, server_default=text("''"))
@@ -193,10 +191,8 @@ class MarginRepay(Base):
 
 class MaxKline(Base):
     __tablename__ = 'max_klines'
-    __table_args__ = (
-        Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval'),
-        Index('idx_kline_max_unique', 'symbol', 'interval', 'start_time', unique=True)
-    )
+    __table_args__ = (Index('klines_end_time_symbol_interval', 'end_time', 'symbol',
+                            'interval'), Index('idx_kline_max_unique', 'symbol', 'interval', 'start_time', unique=True))
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(10), nullable=False)
@@ -219,9 +215,7 @@ class MaxKline(Base):
 
 class NavHistoryDetail(Base):
     __tablename__ = 'nav_history_details'
-    __table_args__ = (
-        Index('idx_nav_history_details', 'time', 'currency', 'exchange'),
-    )
+    __table_args__ = (Index('idx_nav_history_details', 'time', 'currency', 'exchange'),)
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(30), nullable=False)
@@ -245,10 +239,8 @@ class NavHistoryDetail(Base):
 
 class OkexKline(Base):
     __tablename__ = 'okex_klines'
-    __table_args__ = (
-        Index('idx_kline_okex_unique', 'symbol', 'interval', 'start_time', unique=True),
-        Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval')
-    )
+    __table_args__ = (Index('idx_kline_okex_unique', 'symbol', 'interval', 'start_time',
+                            unique=True), Index('klines_end_time_symbol_interval', 'end_time', 'symbol', 'interval'))
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(10), nullable=False)
@@ -271,10 +263,8 @@ class OkexKline(Base):
 
 class Order(Base):
     __tablename__ = 'orders'
-    __table_args__ = (
-        Index('orders_symbol', 'exchange', 'symbol'),
-        Index('orders_order_id', 'order_id', 'exchange', unique=True)
-    )
+    __table_args__ = (Index('orders_symbol', 'exchange',
+                            'symbol'), Index('orders_order_id', 'order_id', 'exchange', unique=True))
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(24), nullable=False, server_default=text("''"))
@@ -291,7 +281,9 @@ class Order(Base):
     side = Column(String(4), nullable=False, server_default=text("''"))
     is_working = Column(TINYINT(1), nullable=False, server_default=text("'0'"))
     created_at = Column(DATETIME(fsp=3), nullable=False)
-    updated_at = Column(DATETIME(fsp=3), nullable=False, server_default=text("CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)"))
+    updated_at = Column(DATETIME(fsp=3),
+                        nullable=False,
+                        server_default=text("CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)"))
     is_margin = Column(TINYINT(1), nullable=False, server_default=text("'0'"))
     is_isolated = Column(TINYINT(1), nullable=False, server_default=text("'0'"))
     is_futures = Column(TINYINT(1), nullable=False, server_default=text("'0'"))
@@ -299,9 +291,7 @@ class Order(Base):
 
 class Position(Base):
     __tablename__ = 'positions'
-    __table_args__ = (
-        Index('trade_id', 'trade_id', 'side', 'exchange', unique=True),
-    )
+    __table_args__ = (Index('trade_id', 'trade_id', 'side', 'exchange', unique=True),)
 
     gid = Column(BIGINT, primary_key=True)
     strategy = Column(String(32), nullable=False)
@@ -352,9 +342,7 @@ class Profit(Base):
 
 class Reward(Base):
     __tablename__ = 'rewards'
-    __table_args__ = (
-        Index('uuid', 'exchange', 'uuid', unique=True),
-    )
+    __table_args__ = (Index('uuid', 'exchange', 'uuid', unique=True),)
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(24), nullable=False, server_default=text("''"))
@@ -370,13 +358,11 @@ class Reward(Base):
 
 class Trade(Base):
     __tablename__ = 'trades'
-    __table_args__ = (
-        Index('trades_traded_at', 'traded_at', 'symbol', 'exchange', 'id', 'fee_currency', 'fee'),
-        Index('trades_price_quantity', 'order_id', 'price', 'quantity'),
-        Index('id', 'exchange', 'symbol', 'side', 'id', unique=True),
-        Index('trades_id_traded_at', 'id', 'traded_at'),
-        Index('trades_order_id_traded_at', 'order_id', 'traded_at')
-    )
+    __table_args__ = (Index('trades_traded_at', 'traded_at', 'symbol', 'exchange', 'id', 'fee_currency',
+                            'fee'), Index('trades_price_quantity', 'order_id', 'price',
+                                          'quantity'), Index('id', 'exchange', 'symbol', 'side', 'id', unique=True),
+                      Index('trades_id_traded_at', 'id',
+                            'traded_at'), Index('trades_order_id_traded_at', 'order_id', 'traded_at'))
 
     gid = Column(BIGINT, primary_key=True)
     id = Column(BIGINT)
@@ -401,9 +387,7 @@ class Trade(Base):
 
 class Withdraw(Base):
     __tablename__ = 'withdraws'
-    __table_args__ = (
-        Index('txn_id', 'exchange', 'txn_id', unique=True),
-    )
+    __table_args__ = (Index('txn_id', 'exchange', 'txn_id', unique=True),)
 
     gid = Column(BIGINT, primary_key=True)
     exchange = Column(String(24), nullable=False, server_default=text("''"))

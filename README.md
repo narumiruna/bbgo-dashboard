@@ -18,7 +18,7 @@ pip install sqlacodegen
 sqlacodegen mysql+pymysql://root@localhost:3306/bbgo > bbgo_dashboard/db/model.py
 ```
 
-## ~~~run dagster~~~
+## run dagster
 
 ```sh
 export MYSQL_USERNAME=

@@ -1,12 +1,32 @@
+import pandas as pd
+import plotly.express as px
 import streamlit as st
+from loguru import logger
+from sqlalchemy import select
 
-from bbgo_dashboard.utils import load_pickle
+from bbgo_dashboard.db import NavHistoryDetail
+from bbgo_dashboard.db import create_engine_from_env
 
 
 def main():
+    engine = create_engine_from_env()
+
     st.title('BBGO Dashboard')
-    df = load_pickle('data/daily_num_trades')
-    st.bar_chart(df)
+
+    logger.info('plotting net asset value in USD')
+    st.header('Net Asset Value in USD')
+    stmt = select(
+        NavHistoryDetail.time,
+        NavHistoryDetail.currency,
+        NavHistoryDetail.net_asset_in_usd,
+    ).where(NavHistoryDetail.session == 'ALL')
+    nav = pd.read_sql(stmt, engine)
+    fig = px.area(nav, x="time", y="net_asset_in_usd", color="currency", line_group="currency")
+    st.plotly_chart(fig)
+
+    last_nav = nav[nav['time'].iloc[-1] == nav['time']]
+    fig = px.pie(last_nav, values='net_asset_in_usd', names='currency')
+    st.plotly_chart(fig)
 
 
 if __name__ == '__main__':

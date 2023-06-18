@@ -16,6 +16,7 @@ pandas = "^2.0.2"
 loguru = "^0.7.0"
 kaleido = "0.2.1"
 streamlit = "^1.23.1"
+jupyter = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"

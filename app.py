@@ -1,3 +1,6 @@
+from datetime import date
+from datetime import datetime
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -15,11 +18,12 @@ def main():
 
     logger.info('plotting net asset value in USD')
     st.header('Net Asset Value in USD')
+    start = st.date_input('start', date(2020, 1, 1))
     stmt = select(
         NavHistoryDetail.time,
         NavHistoryDetail.currency,
         NavHistoryDetail.net_asset_in_usd,
-    ).where(NavHistoryDetail.session == 'ALL')
+    ).where(NavHistoryDetail.session == 'ALL', NavHistoryDetail.time >= start)
     nav = pd.read_sql(stmt, engine)
     fig = px.area(nav, x="time", y="net_asset_in_usd", color="currency", line_group="currency")
     st.plotly_chart(fig)

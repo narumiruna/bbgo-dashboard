@@ -24,8 +24,7 @@ def trades(db: DatabaseResource) -> Output[pd.DataFrame]:
 
 @asset
 def daily_num_trades(trades: pd.DataFrame) -> Output[pd.DataFrame]:
-    df = trades.groupby([pd.Grouper(freq='D'), 'side']).count()
-    df = df[['gid']]
+    df = trades.groupby([pd.Grouper(key='traded_at', freq='D'), 'side']).count()
     return Output(value=df,
                   metadata={
                       "len_df": MetadataValue.int(len(df)),

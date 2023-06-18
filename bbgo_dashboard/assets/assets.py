@@ -5,6 +5,7 @@ from dagster import asset
 from sqlalchemy import select
 
 from ..db import NavHistoryDetail
+from ..db import Profit
 from ..db import Trade
 from .resources import DatabaseResource
 
@@ -33,6 +34,16 @@ def daily_num_trades(trades: pd.DataFrame) -> Output[pd.DataFrame]:
 @asset
 def nav_history_detail(db: DatabaseResource) -> Output[pd.DataFrame]:
     df = db.read_sql(select(NavHistoryDetail), parse_dates=['time'])
+    return Output(value=df,
+                  metadata={
+                      "len_df": MetadataValue.int(len(df)),
+                      "preview": MetadataValue.md(df.head().to_markdown()),
+                  })
+
+
+@asset
+def profits(db: DatabaseResource) -> Output[pd.DataFrame]:
+    df = db.read_sql(select(Profit), parse_dates=['traded_at'])
     return Output(value=df,
                   metadata={
                       "len_df": MetadataValue.int(len(df)),

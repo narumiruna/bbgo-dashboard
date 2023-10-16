@@ -19,7 +19,7 @@ defs = Definitions(
         trades,
     ],
     resources={
-        'db': DatabaseResource(),
-        'io_manager': FilesystemIOManager(base_dir='data'),
+        "db": DatabaseResource(),
+        "io_manager": FilesystemIOManager(base_dir="data"),
     },
 )

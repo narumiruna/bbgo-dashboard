@@ -21,11 +21,11 @@ quantstats = "^0.0.59"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
-yapf = "^0.33.0"
 toml = "^0.10.2"
 pytest = "^7.3.1"
 codecov = "^2.1.13"
 isort = "^5.12.0"
+black = "^23.9.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

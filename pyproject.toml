@@ -2,7 +2,7 @@
 name = "bbgo-dashboard"
 version = "0.2.0"
 description = ""
-authors = ["なるみ"]
+authors = ["narumi <toucans-cutouts0f@icloud.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.9.7 || >3.9.7,<4.0"
@@ -33,3 +33,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.dagster]
 module_name = "bbgo_dashboard.assets"
+
+[tool.poetry.scripts]
+bbgo-dashboard = "bbgo_dashboard.cli:cli"

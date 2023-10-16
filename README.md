@@ -21,11 +21,7 @@ sqlacodegen mysql+pymysql://root@localhost:3306/bbgo > bbgo_dashboard/db/model.p
 ## run dagster
 
 ```sh
-export MYSQL_USERNAME=
-export MYSQL_PASSWORD=
-export MYSQL_HOST=
-export MYSQL_PORT=
-export MYSQL_DATABASE=
+export DB_URL=mysql+pymysql://root@localhost:3306/bbgo
 
 poetry run dagster dev
 ```
